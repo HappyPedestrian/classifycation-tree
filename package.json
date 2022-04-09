@@ -1,0 +1,41 @@
+{
+	"name": "classification-tree",
+	"private": false,
+	"version": "0.0.1",
+	"author": "happy_pedestrian",
+	"main": "lib/classification-tree.umd.js",
+	"module": "lib/classification-tree.es.js",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://gitee.com/happy_pedestrian/classification-tree.git"
+	},
+	"keywords": [
+		"classification-tree",
+		"vue",
+		"tree",
+		"orgchart",
+		"org"
+	],
+	"scripts": {
+		"dev": "vite",
+		"build": "vue-tsc --noEmit && vite build",
+		"build-lib": "vue-tsc --noEmit && vite build --config lib.config.ts",
+		"build-types": "vue-tsc --declaration --emitDeclarationOnly && vite build --config lib.config.ts",
+		"preview": "vite preview"
+	},
+	"files": [
+		"lib"
+	],
+	"peerDependencies": {
+		"vue": "^3.0.0"
+	},
+	"devDependencies": {
+		"@vitejs/plugin-vue": "^2.3.0",
+		"less": "^4.1.2",
+		"typescript": "^4.5.4",
+		"vite": "^2.9.0",
+		"vue": "^3.2.25",
+		"vue-tsc": "^0.29.8"
+	}
+}
