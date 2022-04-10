@@ -2,7 +2,7 @@
  * @Description: 树节点
  * @Author: Happy_Pedestrian
  * @Date: 2022-03-26 09:41:34
- * @LastEditTime: 2022-04-09 15:29:18
+ * @LastEditTime: 2022-04-10 16:01:46
  * @LastEditors: Happy_Pedestrian
 -->
 <template>
@@ -17,12 +17,11 @@
 				mode === 'vertical' ? 'classify-tree-node-content-vertical' : mode === 'horizon' ? 'classify-tree-node-content-horizon' : null
 			"
 		>
-			<div class="classify-tree-node" :style="nodeStyle" :class="nodeData.class">
+			<div class="classify-tree-node" :style="nodeStyle" :class="nodeData.class" ref="treeNodeContentRef">
 				<TemplateContainer
 					v-if="slots && slots[nodeData.slotScope || 'default']"
 					:template="slots[nodeData.slotScope || 'default']"
 					:data="nodeData"
-					ref="treeNodeContentRef"
 				></TemplateContainer>
 				<slot v-else :name="nodeData.slotScope || 'default'" :data="nodeData">
 					<div class="classify-tree-node-default">
@@ -143,7 +142,7 @@ export default defineComponent({
 				height: '0',
 				width: '0',
 			},
-			mutationObserver: {} as MutationObserver,
+			mutationObserver: null as MutationObserver | null,
 			expanded: false,
 		}
 	},
@@ -185,19 +184,23 @@ export default defineComponent({
 	},
 	watch: {
 		showChildren(val) {
-			// this.$nextTick(() => {
-			// 	this.mutationObserverCallback()
-			// 	this.$emit('updateConnectLine')
-			// })
-			this.mutationObserverCallback()
-			setTimeout(() => {
+			if (!this.mutationObserver && val) {
+				this.$nextTick(() => {
+					this.bindMutationObserver()
+				})
 				this.mutationObserverCallback()
-			}, 500)
+				setTimeout(() => {
+					this.mutationObserverCallback()
+				}, 500)
+			} else {
+				this.mutationObserver?.disconnect()
+				this.mutationObserverCallback()
+				setTimeout(() => {
+					this.mutationObserverCallback()
+				}, 500)
+			}
 		},
 		mode() {
-			// this.$nextTick(() => {
-			// 	this.mutationObserverCallback()
-			// })
 			this.mutationObserverCallback()
 			setTimeout(() => {
 				this.mutationObserverCallback()
@@ -211,19 +214,11 @@ export default defineComponent({
 		this.expanded = this.nodeData.expanded === false ? false : true
 	},
 	mounted() {
-		const treeNodeContentRef: any = this.$refs.treeNodeContentRef
-		if (treeNodeContentRef) {
-			this.mutationObserver = createMutationObserver(treeNodeContentRef.$el as HTMLElement, () => {
-				this.$nextTick(() => {
-					setTimeout(() => {
-						this.mutationObserverCallback()
-					}, 500)
-				})
-			})
-		}
+		// const treeNodeContentRef: any = this.$refs.treeNodeContentRef
+		this.bindMutationObserver()
 		this.mutationObserverCallback()
 	},
-	unmounted() {
+	beforeUnmount() {
 		if (this?.mutationObserver?.disconnect) {
 			this.mutationObserver.disconnect()
 		}
@@ -232,8 +227,24 @@ export default defineComponent({
 		})
 	},
 	methods: {
+		bindMutationObserver() {
+			if (this.mutationObserver) {
+				return
+			}
+			const childNodesBoxRef: any = this.$refs.childNodesBoxRef
+			if (childNodesBoxRef) {
+				this.mutationObserver = createMutationObserver(childNodesBoxRef as HTMLElement, () => {
+					this.$nextTick(() => {
+						setTimeout(() => {
+							// console.log('mutationObserver')
+							this.mutationObserverCallback()
+						}, 500)
+					})
+				})
+			}
+		},
 		mutationObserverCallback() {
-			console.log('执行了callback')
+			// console.log('执行了callback')
 			this.connectLinePaths = []
 			this.arrowPositions = []
 			const treeNodeRef: HTMLElement = this.$refs.treeNodeRef as HTMLElement
@@ -249,12 +260,10 @@ export default defineComponent({
 				if (this.mode === 'vertical') {
 					Object.assign(this.svgStyle, {
 						height: lineHeight,
-						// width: this.treeNodeElRect.width,
 						width: childrenBoxRect.width,
 					})
 				} else if (this.mode === 'horizon') {
 					Object.assign(this.svgStyle, {
-						// height: this.treeNodeElRect.height,
 						height: childrenBoxRect.height,
 						width: lineHeight,
 					})
@@ -390,6 +399,8 @@ export default defineComponent({
 		}
 		.diliver {
 			transition: all 0.3s linear;
+			display: flex;
+			justify-content: center;
 			svg {
 				display: block;
 			}

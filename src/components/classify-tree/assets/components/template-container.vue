@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: Happy_Pedestrian
  * @Date: 2022-03-28 16:47:08
- * @LastEditTime: 2022-04-04 10:45:07
+ * @LastEditTime: 2022-04-10 15:17:34
  * @LastEditors: Happy_Pedestrian
 -->
 <script lang="ts">
@@ -22,7 +22,9 @@ export default defineComponent({
 	},
 	computed: {},
 	watch: {},
-	mounted() {},
+	mounted() {
+		this.$emit('mounted')
+	},
 	methods: {},
 	render: (props: any) => h('div', [props.template(props.data)]),
 	// render: (props: any) => h(() => props.template(props.data)),
