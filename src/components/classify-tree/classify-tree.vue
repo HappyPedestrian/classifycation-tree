@@ -2,7 +2,7 @@
  * @Description: 树组件
  * @Author: Happy_Pedestrian
  * @Date: 2022-03-26 09:56:13
- * @LastEditTime: 2022-04-09 13:29:20
+ * @LastEditTime: 2022-04-11 10:10:09
  * @LastEditors: Happy_Pedestrian
 -->
 <template>
@@ -26,14 +26,14 @@
 <script lang="ts">
 import { defineComponent, toRefs, provide } from 'vue'
 import TemplateContainer from './assets/components/template-container.vue'
-import { ClassifyNode, ConnectLineOption, TreeNodeProps, TreeNodeProp } from './assets/classify-tree-types'
+import { ClassificationNode, ConnectLineOption, TreeNodeProps, TreeNodeProp } from './assets/classify-tree-types'
 import ClassifyTreeNode from './classify-tree-node.vue'
 
 export default defineComponent({
 	name: 'ClassifyTree',
 	props: {
 		nodeList: {
-			default: (): ClassifyNode[] => {
+			default: (): ClassificationNode[] => {
 				return []
 			},
 		},

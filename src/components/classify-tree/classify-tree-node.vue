@@ -2,7 +2,7 @@
  * @Description: 树节点
  * @Author: Happy_Pedestrian
  * @Date: 2022-03-26 09:41:34
- * @LastEditTime: 2022-04-10 16:01:46
+ * @LastEditTime: 2022-04-11 13:56:08
  * @LastEditors: Happy_Pedestrian
 -->
 <template>
@@ -21,9 +21,9 @@
 				<TemplateContainer
 					v-if="slots && slots[nodeData.slotScope || 'default']"
 					:template="slots[nodeData.slotScope || 'default']"
-					:data="nodeData"
+					:data="{ node: nodeData, parent }"
 				></TemplateContainer>
-				<slot v-else :name="nodeData.slotScope || 'default'" :data="nodeData">
+				<slot v-else :name="nodeData.slotScope || 'default'" :data="{ node: nodeData, parent }">
 					<div class="classify-tree-node-default">
 						{{ nodeData[treeNodeProp.label] }}
 					</div>
@@ -80,7 +80,13 @@
 				<div class="classify-tree-children" v-if="showChildren" ref="childNodesBoxRef">
 					<transition-group name="children-box">
 						<template v-for="(node, index) in nodeData[treeNodeProp.children]" :key="node[treeNodeProp.key]">
-							<ClassifyTreeNode :node-data="node" :style="getChildStyle(index)" :mode="mode" @updateConnectLine="mutationObserverCallback">
+							<ClassifyTreeNode
+								:node-data="node"
+								:parent="nodeData"
+								:style="getChildStyle(index)"
+								:mode="mode"
+								@updateConnectLine="mutationObserverCallback"
+							>
 							</ClassifyTreeNode>
 						</template>
 					</transition-group>
@@ -93,20 +99,25 @@
 <script lang="ts">
 import { defineComponent, provide, inject, Slots } from 'vue'
 import TemplateContainer from './assets/components/template-container.vue'
-import { ClassifyNode, ConnectLineOption, TreeNodeProps, TreeNodeProp } from './assets/classify-tree-types'
+import { ClassificationNode, ConnectLineOption, TreeNodeProps, TreeNodeProp } from './assets/classify-tree-types'
 import { createMutationObserver } from './assets/constants'
 
 export default defineComponent({
 	name: 'ClassifyTreeNode',
 	props: {
 		nodeData: {
-			default: (): ClassifyNode => {
+			default: (): ClassificationNode => {
 				return {
 					label: '',
 					key: '',
 					slotScope: 'default',
 					expanded: false,
 				}
+			},
+		},
+		parent: {
+			default: (): ClassificationNode | null => {
+				return null
 			},
 		},
 		mode: {
@@ -122,11 +133,21 @@ export default defineComponent({
 			children: treeNodeProps?.children || 'children',
 			key: treeNodeProps?.key || 'children',
 		}
+
+		let nodeConnectLineOption: ConnectLineOption | undefined = {}
+		if (props.nodeData.connectLineOption) {
+			nodeConnectLineOption = {
+				...props.nodeData.connectLineOption,
+			}
+		} else {
+			nodeConnectLineOption = connectLineOption
+		}
+
 		provide('slots', slots || context.slots)
-		provide<ConnectLineOption | undefined>('connectLineOption', connectLineOption)
+		provide<ConnectLineOption | undefined>('connectLineOption', nodeConnectLineOption)
 		return {
 			slots,
-			connectLineOption,
+			nodeConnectLineOption,
 			treeNodeProp,
 		}
 	},
@@ -155,20 +176,10 @@ export default defineComponent({
 			}
 			return null
 		},
-		nodeConnectLineOption(): ConnectLineOption | undefined {
-			if (this.nodeData.connectLineOption) {
-				return {
-					...this.connectLineOption,
-					// ...this.nodeData.connectLineOption,
-				}
-			} else {
-				return this.connectLineOption
-			}
-		},
 		nodeChildrenConnectLineOption(): ConnectLineOption[] {
 			const nodeConnectLineOption = this.nodeConnectLineOption
 			if (this.nodeData[this.treeNodeProp.children]) {
-				return this.nodeData[this.treeNodeProp.children].map((child: ClassifyNode) => {
+				return this.nodeData[this.treeNodeProp.children].map((child: ClassificationNode) => {
 					let childConnectLineOption = child.connectLineOption || {}
 					return {
 						...nodeConnectLineOption,
