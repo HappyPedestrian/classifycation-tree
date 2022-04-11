@@ -5,6 +5,7 @@ import { ref, reactive } from 'vue'
 // import '../lib/style.css'
 // import ClassifyTree from '../lib/classification-tree.es'
 import ClassifyTree from './components/classify-tree/classify-tree.vue'
+let displayMode = ref('vertical')
 const list: ClassificationNode[] = [
 	{
 		label: '分类',
@@ -83,11 +84,16 @@ function removeClassify(parent: ClassificationNode, node: ClassificationNode): v
 		parent?.children?.splice(index, 1)
 	}
 }
+
+function changeDisplayMode(value: string) {
+	displayMode.value = value
+}
 </script>
 
 <template>
 	<img alt="Vue logo" src="./assets/logo.png" />
-	<ClassifyTree :nodeList="nodeList">
+	<div><button @click="changeDisplayMode('horizon')">横向</button> <button @click="changeDisplayMode('vertical')">纵向</button></div>
+	<ClassifyTree :nodeList="nodeList" :mode="displayMode">
 		<template #default="{ node, parent }">
 			<div class="classify-item">
 				<div class="classify-label">
