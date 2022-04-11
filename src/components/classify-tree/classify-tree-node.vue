@@ -2,7 +2,7 @@
  * @Description: 树节点
  * @Author: Happy_Pedestrian
  * @Date: 2022-03-26 09:41:34
- * @LastEditTime: 2022-04-11 13:56:08
+ * @LastEditTime: 2022-04-11 15:24:10
  * @LastEditors: Happy_Pedestrian
 -->
 <template>
@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, inject, Slots } from 'vue'
+import { defineComponent, provide, inject, Slots, toRefs, ref } from 'vue'
 import TemplateContainer from './assets/components/template-container.vue'
 import { ClassificationNode, ConnectLineOption, TreeNodeProps, TreeNodeProp } from './assets/classify-tree-types'
 import { createMutationObserver } from './assets/constants'
@@ -125,6 +125,7 @@ export default defineComponent({
 		},
 	},
 	setup(props, context) {
+		const { nodeData } = toRefs(props)
 		const slots = inject<Slots>('slots')
 		const connectLineOption = inject<ConnectLineOption>('connectLineOption')
 		const treeNodeProps = inject<TreeNodeProps>('treeNodeProp')
@@ -135,9 +136,9 @@ export default defineComponent({
 		}
 
 		let nodeConnectLineOption: ConnectLineOption | undefined = {}
-		if (props.nodeData.connectLineOption) {
+		if (nodeData?.value?.connectLineOption) {
 			nodeConnectLineOption = {
-				...props.nodeData.connectLineOption,
+				...nodeData?.value?.connectLineOption,
 			}
 		} else {
 			nodeConnectLineOption = connectLineOption
@@ -147,8 +148,8 @@ export default defineComponent({
 		provide<ConnectLineOption | undefined>('connectLineOption', nodeConnectLineOption)
 		return {
 			slots,
-			nodeConnectLineOption,
-			treeNodeProp,
+			nodeConnectLineOption: ref(nodeConnectLineOption),
+			treeNodeProp: ref(treeNodeProp),
 		}
 	},
 	components: {
