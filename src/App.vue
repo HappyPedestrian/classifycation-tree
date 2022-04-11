@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 // import '../lib/style.css'
 // import ClassifyTree from '../lib/classification-tree.es'
 import ClassifyTree from './components/classify-tree/classify-tree.vue'
@@ -62,7 +62,7 @@ type ClassificationNode = {
 		lineWidth?: string
 	}
 }
-const nodeList = ref(list)
+const nodeList = reactive(list)
 
 function addClassify(parent: ClassificationNode) {
 	const newTag = {

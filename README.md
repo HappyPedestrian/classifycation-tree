@@ -36,7 +36,7 @@ export default defineComponent({
 | 参数                 | 说明                   | 类型                    | 默认值                                                                     |
 | -------------------- | ---------------------- | ----------------------- | -------------------------------------------------------------------------- |
 | node-list            | 树节点数组             | ClassificationNode[]    | []                                                                         |
-| mode                 | 树组件显示方向         | 'horizon' \| 'vertical' | 'horizon'                                                                  |
+| mode                 | 父子组件排列方向       | 'horizon' \| 'vertical' | 'horizon'                                                                  |
 | connectLineOption    | 树组件连接线显示配置   | ConnectLineOption 对象  | {lineHeight: '20px', showArrow: false, lineColor: 'black', lineWidth: '2'} |
 | treeNodeProps        | 自定义元素节点属性别名 | TreeNodeProps 对象      | { label: 'label', children: 'children', key: 'key', }                      |
 | expand               | 展开按钮自定义插槽     | v-slot:data             | -                                                                          |
