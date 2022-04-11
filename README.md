@@ -5,7 +5,7 @@
 本组件基于 vue3。用于展示树形结构，每个树节点可通过插槽进行自定义。
 实现效果如下：
 
-## [demo](https://happypedestrian.github.io/classifycation-tree/dist/index.html)
+## [demo](https://happypedestrian.github.io/classifycation-tree/demo/index.html)
 
 ## 安装
 

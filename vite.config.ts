@@ -7,6 +7,6 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     cssTarget: 'chrome61',
-    outDir: './dist',
+    outDir: './docs/demo',
   },
 })
