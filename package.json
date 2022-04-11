@@ -5,6 +5,7 @@
 	"author": "happy_pedestrian",
 	"main": "lib/classification-tree.umd.js",
 	"module": "lib/classification-tree.es.js",
+	"typings": "types/index.d.ts",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -25,7 +26,8 @@
 		"preview": "vite preview"
 	},
 	"files": [
-		"lib"
+		"lib",
+		"types"
 	],
 	"peerDependencies": {
 		"vue": "^3.0.0"

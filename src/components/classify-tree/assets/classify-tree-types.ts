@@ -2,12 +2,12 @@
  * @Description: 
  * @Author: Happy_Pedestrian
  * @Date: 2022-03-26 09:59:51
- * @LastEditTime: 2022-04-07 16:17:31
+ * @LastEditTime: 2022-04-11 10:10:17
  * @LastEditors: Happy_Pedestrian
  */
-export interface ClassifyNode {
+export interface ClassificationNode {
   label?: string // 标题文字
-  children?: ClassifyNode[] | undefined | null // 子节点数组
+  children?: ClassificationNode[] | undefined | null // 子节点数组
   style?: any // 包裹节点的div的样式
   class?: string | string[] // 包裹节点的div的类名
   expanded?: boolean | undefined | null // 是否展开显示子节点

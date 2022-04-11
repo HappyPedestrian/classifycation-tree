@@ -11,6 +11,7 @@
     "isolatedModules": false,
     "esModuleInterop": true,
     "declaration": true,
+    "declarationDir": "types",
     "allowJs": true,
     "lib": ["esnext", "dom"]
   },

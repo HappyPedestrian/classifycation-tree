@@ -1,45 +1,74 @@
-<script setup>
+<script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import { ref } from 'vue'
-import '../lib/style.css'
+// import '../lib/style.css'
 // import ClassifyTree from '../lib/classification-tree.es'
 import ClassifyTree from './components/classify-tree/classify-tree.vue'
-const list = [
+const list: ClassificationNode[] = [
 	{
 		label: '分类',
 		key: 0,
 		slotScope: 'rootNode',
+		connectLineOption: {
+			showArrow: true,
+			lineColor: 'blue',
+			lineHeight: '40px',
+		},
 		children: [
 			{
 				label: '节点1',
 				key: 1,
+				connectLineOption: {
+					showArrow: true,
+				},
 				children: [
 					{
 						label: '节点11',
 						key: 11,
+						connectLineOption: {
+							lineColor: 'red',
+						},
 					},
 					{
 						label: '节点12',
 						key: 12,
+						connectLineOption: {
+							lineColor: '#158468',
+						},
 					},
 					{
 						label: '节点13',
 						key: 13,
 						slotScope: 'newTag',
+						connectLineOption: {
+							lineColor: 'rgba(255, 122, 75, 0.5)',
+						},
 					},
 				],
 			},
 		],
 	},
 ]
+type ClassificationNode = {
+	label?: string
+	key?: number
+	slotScope?: string
+	children?: ClassificationNode[]
+	connectLineOption?: {
+		lineHeight?: string
+		showArrow?: boolean
+		lineColor?: string
+		lineWidth?: string
+	}
+}
 const nodeList = ref(list)
 
-function addClassify(parent) {
+function addClassify(parent: ClassificationNode) {
 	const newTag = {
 		label: '新标签',
 		key: new Date().getTime(),
-		// slotScope: 'newTag',
+		slotScope: 'newTag',
 	}
 	if (parent.children) {
 		parent.children.push(newTag)
@@ -47,33 +76,44 @@ function addClassify(parent) {
 		parent.children = [newTag]
 	}
 }
+
+function removeClassify(parent: ClassificationNode, node: ClassificationNode): void {
+	const index = parent?.children?.findIndex((item) => item.key === node.key)
+	if (index) {
+		parent?.children?.splice(index, 1)
+	}
+}
 </script>
 
 <template>
 	<img alt="Vue logo" src="./assets/logo.png" />
-	<ClassifyTree v-model:nodeList="nodeList">
-		<template #default="data">
+	<ClassifyTree :nodeList="nodeList">
+		<template #default="{ node, parent }">
 			<div class="classify-item">
 				<div class="classify-label">
-					{{ data.label }}
+					{{ node.label }}
 				</div>
-				<div class="classify-option" @click="addClassify(data)">增加分类</div>
+				<div class="classify-option">
+					<button @click="addClassify(node)">+</button><button @click="removeClassify(parent, node)">删除</button>
+				</div>
 			</div>
 		</template>
-		<template #rootNode="data">
+		<template #rootNode="{ node }">
 			<div class="classify-item root-node">
 				<div class="classify-label">
-					{{ data.label }}
+					{{ node.label }}
 				</div>
-				<div class="classify-option" @click="addClassify(data)">增加分类</div>
+				<div class="classify-option" @click="addClassify(node)">增加分类</div>
 			</div>
 		</template>
-		<template #newTag="data">
+		<template #newTag="{ node, parent }">
 			<div class="classify-item new-tag">
 				<div class="classify-label">
-					<input v-model="data.label" />
+					{{ node.label }}
 				</div>
-				<div class="classify-option">取消</div>
+				<div class="classify-option">
+					<button @click="addClassify(node)">+</button><button @click="removeClassify(parent, node)">删除</button>
+				</div>
 			</div>
 		</template>
 	</ClassifyTree>
@@ -115,10 +155,14 @@ function addClassify(parent) {
 	}
 }
 .root-node {
+	padding: 10px;
 	border: 3px solid #28d4cbe6;
+	border-radius: 40%;
+	overflow: hidden;
 	.classify-label {
 	}
 	.classify-option {
+		border-radius: 10px;
 		background-color: rgb(157, 0, 255);
 	}
 }
