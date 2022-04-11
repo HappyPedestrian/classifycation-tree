@@ -9,7 +9,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://gitee.com/happy_pedestrian/classification-tree.git"
+		"url": "https://github.com/HappyPedestrian/classifycation-tree"
 	},
 	"keywords": [
 		"classification-tree",
