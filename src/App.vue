@@ -5,6 +5,9 @@ import { ref, reactive } from 'vue'
 // import '../lib/style.css'
 // import ClassifyTree from '../lib/classification-tree.es'
 import ClassifyTree from './components/classify-tree/classify-tree.vue'
+// import 'classification-tree/lib/style.css'
+// import ClassifyTree from 'classification-tree'
+
 let displayMode = ref('vertical')
 const list: ClassificationNode[] = [
 	{
@@ -92,6 +95,11 @@ function changeDisplayMode(value: string) {
 
 <template>
 	<img alt="Vue logo" src="./assets/logo.png" />
+	<div style="margin: 20px">
+		页面代码请查看<a href="https://github.com/HappyPedestrian/classifycation-tree" target="_blank" style="color: cadetblue"
+			>classification-tree项目</a
+		>的src目录下的App.vue文件
+	</div>
 	<div><button @click="changeDisplayMode('horizon')">横向</button> <button @click="changeDisplayMode('vertical')">纵向</button></div>
 	<ClassifyTree :nodeList="nodeList" :mode="displayMode">
 		<template #default="{ node, parent }">

@@ -7,7 +7,7 @@
 ![默认](https://happypedestrian.github.io/classifycation-tree/images/default.jpg)
 
 自定义：  
-![默认](https://happypedestrian.github.io/classifycation-tree/images/customer.jpg)
+![自定义](https://happypedestrian.github.io/classifycation-tree/images/customer.jpg)
 
 ## [demo](https://happypedestrian.github.io/classifycation-tree/demo/index.html)
 
@@ -21,17 +21,83 @@ npm install classification-tree -S
 
 ```javascript
 <script>
-import 'classification-tree/style.css'
+import 'classification-tree/lib/style.css'
 import ClassifyTree from 'classification-tree'
 import { defineComponent } from 'vue'
 export default defineComponent({
 	components: {
 		ClassifyTree,
 	},
+  data: () => {
+    return {
+      nodeList: [
+        {
+          label: '分类',
+          key: 0,
+          slotScope: 'rootNode',
+          connectLineOption: {
+            showArrow: true,
+            lineColor: 'blue',
+            lineHeight: '40px',
+          },
+          children: [
+            {
+              label: '节点1',
+              key: 1,
+              connectLineOption: {
+                showArrow: true,
+              },
+              children: [
+                {
+                  label: '节点11',
+                  key: 11,
+                  connectLineOption: {
+                    lineColor: 'red',
+                  },
+                },
+                {
+                  label: '节点12',
+                  key: 12,
+                  connectLineOption: {
+                    lineColor: '#158468',
+                  },
+                },
+                {
+                  label: '节点13',
+                  key: 13,
+                  slotScope: 'newTag',
+                  connectLineOption: {
+                    lineColor: 'rgba(255, 122, 75, 0.5)',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      mode: 'vertical'
+    }
+  }
 })
 </script>
 <template>
-	<ClassifyTree />
+	<ClassifyTree :node-list="nodeList" :mode="mode" >
+    <template #default="{ node, parent }">
+			<div class="classify-item">
+        default slot{{ node.label }}
+      </div>
+    </template>
+    <template #rootNode="{ node, parent }">
+			<div class="classify-item">
+        root node {{ node.label }}
+      </div>
+    </template>
+    <template #newTag="{ node, parent }">
+			<div class="classify-item">
+        new tag{{ node.label }}
+      </div>
+    </template>
+  </ClassifyTree>
 </template>
 ```
 
