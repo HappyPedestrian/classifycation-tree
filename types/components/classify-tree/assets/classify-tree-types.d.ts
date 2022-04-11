@@ -1,6 +1,6 @@
-export interface ClassifyNode {
+export interface ClassificationNode {
     label?: string;
-    children?: ClassifyNode[] | undefined | null;
+    children?: ClassificationNode[] | undefined | null;
     style?: any;
     class?: string | string[];
     expanded?: boolean | undefined | null;

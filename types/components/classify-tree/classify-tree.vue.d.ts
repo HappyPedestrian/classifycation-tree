@@ -1,7 +1,7 @@
-import { ClassifyNode, ConnectLineOption, TreeNodeProps, TreeNodeProp } from './assets/classify-tree-types';
+import { ClassificationNode, ConnectLineOption, TreeNodeProps, TreeNodeProp } from './assets/classify-tree-types';
 declare const _default: import("vue").DefineComponent<{
     nodeList: {
-        default: () => ClassifyNode[];
+        default: () => ClassificationNode[];
     };
     mode: {
         default: string;
@@ -24,7 +24,7 @@ declare const _default: import("vue").DefineComponent<{
     };
 }, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     nodeList: {
-        default: () => ClassifyNode[];
+        default: () => ClassificationNode[];
     };
     mode: {
         default: string;
@@ -38,7 +38,7 @@ declare const _default: import("vue").DefineComponent<{
 }>>, {
     mode: string;
     connectLineOption: ConnectLineOption;
-    nodeList: ClassifyNode[];
+    nodeList: ClassificationNode[];
     treeNodeProps: TreeNodeProps;
 }>;
 export default _default;

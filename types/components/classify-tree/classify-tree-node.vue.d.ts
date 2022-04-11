@@ -1,7 +1,10 @@
-import { ClassifyNode, ConnectLineOption, TreeNodeProp } from './assets/classify-tree-types';
+import { ClassificationNode, ConnectLineOption, TreeNodeProp } from './assets/classify-tree-types';
 declare const _default: import("vue").DefineComponent<{
     nodeData: {
-        default: () => ClassifyNode;
+        default: () => ClassificationNode;
+    };
+    parent: {
+        default: () => ClassificationNode | null;
     };
     mode: {
         default: string;
@@ -10,7 +13,7 @@ declare const _default: import("vue").DefineComponent<{
     slots: Readonly<{
         [name: string]: import("vue").Slot | undefined;
     }> | undefined;
-    connectLineOption: ConnectLineOption | undefined;
+    nodeConnectLineOption: ConnectLineOption | undefined;
     treeNodeProp: TreeNodeProp;
 }, {
     treeNodeElRect: DOMRect;
@@ -24,7 +27,6 @@ declare const _default: import("vue").DefineComponent<{
     expanded: boolean;
 }, {
     nodeStyle(): any | null;
-    nodeConnectLineOption(): ConnectLineOption | undefined;
     nodeChildrenConnectLineOption(): ConnectLineOption[];
     showChildren(): any;
 }, {
@@ -41,13 +43,17 @@ declare const _default: import("vue").DefineComponent<{
     updateConnectLine(): void;
 }, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     nodeData: {
-        default: () => ClassifyNode;
+        default: () => ClassificationNode;
+    };
+    parent: {
+        default: () => ClassificationNode | null;
     };
     mode: {
         default: string;
     };
 }>>, {
+    parent: ClassificationNode;
     mode: string;
-    nodeData: ClassifyNode;
+    nodeData: ClassificationNode;
 }>;
 export default _default;
