@@ -2,8 +2,12 @@
 
 ## 介绍
 
-本组件基于 vue3。用于展示树形结构，每个树节点可通过插槽进行自定义。
-实现效果如下：
+本组件基于 vue3。用于展示树形结构，每个树节点可通过插槽进行自定义。实现效果如下：  
+默认：  
+![默认](https://happypedestrian.github.io/classifycation-tree/images/default.jpg)
+
+自定义：  
+![默认](https://happypedestrian.github.io/classifycation-tree/images/customer.jpg)
 
 ## [demo](https://happypedestrian.github.io/classifycation-tree/demo/index.html)
 
