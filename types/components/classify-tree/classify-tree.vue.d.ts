@@ -1,4 +1,4 @@
-import { ClassificationNode, ConnectLineOption, TreeNodeProps, TreeNodeProp } from './assets/classify-tree-types';
+import { ClassificationNode, ConnectLineOption, TreeNodeProps } from './assets/classify-tree-types';
 declare const _default: import("vue").DefineComponent<{
     nodeList: {
         default: () => ClassificationNode[];
@@ -13,7 +13,11 @@ declare const _default: import("vue").DefineComponent<{
         default: () => TreeNodeProps;
     };
 }, {
-    treeNodeProp: TreeNodeProp;
+    treeNodeProp: import("vue").Ref<{
+        label: string;
+        children: string;
+        key: string;
+    }>;
 }, {}, {}, {
     getChildStyle(index: number): {
         marginRight: string | null;

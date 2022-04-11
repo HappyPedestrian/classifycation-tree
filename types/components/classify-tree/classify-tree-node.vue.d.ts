@@ -1,4 +1,4 @@
-import { ClassificationNode, ConnectLineOption, TreeNodeProp } from './assets/classify-tree-types';
+import { ClassificationNode, ConnectLineOption } from './assets/classify-tree-types';
 declare const _default: import("vue").DefineComponent<{
     nodeData: {
         default: () => ClassificationNode;
@@ -13,8 +13,17 @@ declare const _default: import("vue").DefineComponent<{
     slots: Readonly<{
         [name: string]: import("vue").Slot | undefined;
     }> | undefined;
-    nodeConnectLineOption: ConnectLineOption | undefined;
-    treeNodeProp: TreeNodeProp;
+    nodeConnectLineOption: import("vue").Ref<{
+        lineHeight?: string | undefined;
+        lineColor?: string | undefined;
+        lineWidth?: string | number | undefined;
+        showArrow?: boolean | undefined;
+    } | undefined>;
+    treeNodeProp: import("vue").Ref<{
+        label: string;
+        children: string;
+        key: string;
+    }>;
 }, {
     treeNodeElRect: DOMRect;
     connectLinePaths: string[];
