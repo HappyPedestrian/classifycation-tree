@@ -1,23 +1,25 @@
 # classification-tree
 
-## 介绍
+English | [简体中文](./README-zh_CN.md)
 
-本组件基于 vue3。用于展示树形结构，每个树节点可通过插槽进行自定义。实现效果如下：  
-默认：  
-![默认](https://happypedestrian.github.io/classifycation-tree/images/default.jpg)
+## introduce
 
-自定义：  
-![自定义](https://happypedestrian.github.io/classifycation-tree/images/customer.jpg)
+This component is based on vue3. It is used to display the tree structure. Each tree node can be customized through slots. The display effect is as follows:  
+default：  
+![default](https://happypedestrian.github.io/classifycation-tree/images/default.jpg)
+
+custom：  
+![custom](https://happypedestrian.github.io/classifycation-tree/images/customer.jpg)
 
 ## [demo](https://happypedestrian.github.io/classifycation-tree/demo/index.html)
 
-## 安装
+## install
 
-```node
-npm install classification-tree -S
+```bash
+$ npm install classification-tree -S
 ```
 
-## 使用
+## use
 
 ```javascript
 <script>
@@ -28,11 +30,11 @@ export default defineComponent({
 	components: {
 		ClassifyTree,
 	},
-  data: () => {
+  data() {
     return {
       nodeList: [
         {
-          label: '分类',
+          label: 'root',
           key: 0,
           slotScope: 'rootNode',
           connectLineOption: {
@@ -42,28 +44,28 @@ export default defineComponent({
           },
           children: [
             {
-              label: '节点1',
+              label: 'node1',
               key: 1,
               connectLineOption: {
                 showArrow: true,
               },
               children: [
                 {
-                  label: '节点11',
+                  label: 'node11',
                   key: 11,
                   connectLineOption: {
                     lineColor: 'red',
                   },
                 },
                 {
-                  label: '节点12',
+                  label: 'node12',
                   key: 12,
                   connectLineOption: {
                     lineColor: '#158468',
                   },
                 },
                 {
-                  label: '节点13',
+                  label: 'node13',
                   key: 13,
                   slotScope: 'newTag',
                   connectLineOption: {
@@ -103,34 +105,34 @@ export default defineComponent({
 
 ## classification-tree props
 
-| 参数                 | 说明                       | 类型                    | 默认值                                                                     |
-| -------------------- | -------------------------- | ----------------------- | -------------------------------------------------------------------------- |
-| node-list            | 树节点数组                 | ClassificationNode[]    | []                                                                         |
-| mode                 | 父子节点排列方向           | 'horizon' \| 'vertical' | 'vertical'                                                                 |
-| connectLineOption    | 树组件连接线显示配置       | ConnectLineOption 对象  | {lineHeight: '20px', showArrow: false, lineColor: 'black', lineWidth: '2'} |
-| treeNodeProps        | 自定义元素节点对象属性别名 | TreeNodeProps 对象      | { label: 'label', children: 'children', key: 'key', }                      |
-| expand               | 展开按钮自定义插槽         | v-slot:data             | -                                                                          |
-| 其它自定义树节点插槽 | 树节点自定义插槽           | v-slot: {node, parent}  | -                                                                          |
+| props                  | description                                               | type                    | default                                                                    |
+| ---------------------- | --------------------------------------------------------- | ----------------------- | -------------------------------------------------------------------------- |
+| node-list              | tree node array                                           | ClassificationNode[]    | []                                                                         |
+| mode                   | Parent-child node arrangement direction                   | 'horizon' \| 'vertical' | 'vertical'                                                                 |
+| connectLineOption      | Connector display configuration of parent and child nodes | ConnectLineOption       | {lineHeight: '20px', showArrow: false, lineColor: 'black', lineWidth: '2'} |
+| treeNodeProps          | Custom element node object attribute alias                | TreeNodeProps           | { label: 'label', children: 'children', key: 'key', }                      |
+| expand                 | Expand button custom slot                                 | v-slot:data             | -                                                                          |
+| Custom tree node slots | Tree node custom slot                                     | v-slot: {node, parent}  | -                                                                          |
 
-## 树节点对象 ClassificationNode
+## ClassificationNode Object
 
-| 属性              | 说明                                      | 类型                 | 默认值    |
-| ----------------- | ----------------------------------------- | -------------------- | --------- |
-| label             | 节点名称（可通过 treeNodeProps 自定义）   | string               | ''        |
-| key               | key 值（可通过 treeNodeProps 自定义）     | string               | ''        |
-| children          | 子节点数组（可通过 treeNodeProps 自定义） | ClassificationNode[] | undefined |
-| connectLineOption | 该节点连接线显示配置                      | ConnectLineOption    | undefined |
-| style             | 节点 div 样式                             | Object               | {}        |
-| class             | 用于节点 div 的类名                       | string               | ''        |
-| expanded          | 节点子数组是否展开                        | boolean              | true      |
-| slotScope         | 自定义节点插槽名                          | string               | 'default' |
-| ...               | 其他                                      | -                    | -         |
+| attribute         | description                                               | type                 | default value |
+| ----------------- | --------------------------------------------------------- | -------------------- | ------------- |
+| label             | Node name (can be customized by 'treeNodeProps' prop)     | string               | ''            |
+| key               | Node key (can be customized by 'treeNodeProps' prop)      | string               | ''            |
+| children          | Node children (can be customized by 'treeNodeProps' prop) | ClassificationNode[] | undefined     |
+| connectLineOption | Connector display configuration of the node               | ConnectLineOption    | undefined     |
+| style             | The style used for this node div                          | Object               | {}            |
+| class             | The class used for this node div                          | string               | ''            |
+| expanded          | Expand node subarray                                      | boolean              | true          |
+| slotScope         | Custom node slot name                                     | string               | 'default'     |
+| ...               | other                                                     | -                    | -             |
 
-## 连接线配置对象 ConnectLineOption
+## ConnectLineOption Object
 
-| 属性       | 说明                               | 类型    | 默认值  |
-| ---------- | ---------------------------------- | ------- | ------- |
-| lineHeight | 节点与其子节点的连接线高度         | string  | '20px'  |
-| showArrow  | 节点与其子节点的连接线是否展示箭头 | boolean | false   |
-| lineColor  | 节点与其父节点的连接线颜色         | string  | 'black' |
-| lineWidth  | 节点与其父节点的连接线粗细         | string  | '2'     |
+| attribute  | description                                                                  | type    | default value |
+| ---------- | ---------------------------------------------------------------------------- | ------- | ------------- |
+| lineHeight | The height of the connecting line between the node and its child nodes       | string  | '20px'        |
+| showArrow  | Does the connection line between the node and its child nodes display arrows | boolean | false         |
+| lineColor  | The color of the connector between the node and its parent node              | string  | 'black'       |
+| lineWidth  | The thickness of the connecting line between the node and its parent node    | string  | '2'           |
