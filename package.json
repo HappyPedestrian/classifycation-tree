@@ -1,7 +1,7 @@
 {
 	"name": "classification-tree",
 	"private": false,
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"author": "happy_pedestrian",
 	"main": "lib/classification-tree.umd.js",
 	"module": "lib/classification-tree.es.js",
