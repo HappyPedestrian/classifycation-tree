@@ -84,18 +84,18 @@ export default defineComponent({
 </script>
 <template>
 	<ClassifyTree :node-list="nodeList" :mode="mode" >
-    <template #default="{ node, parent }">
-			<div class="classify-item">
+    <template #default="{ node, parent }" >
+			<div class="classify-item" >
         default slot{{ node.label }}
       </div>
     </template>
-    <template #rootNode="{ node, parent }">
-			<div class="classify-item">
+    <template #rootNode="{ node, parent }" >
+			<div class="classify-item" >
         root node {{ node.label }}
       </div>
     </template>
-    <template #newTag="{ node, parent }">
-			<div class="classify-item">
+    <template #newTag="{ node, parent }" >
+			<div class="classify-item" >
         new tag{{ node.label }}
       </div>
     </template>

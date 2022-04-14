@@ -19,7 +19,7 @@ custom：
 $ npm install classification-tree -S
 ```
 
-## use
+## usage
 
 ```javascript
 <script>
@@ -84,18 +84,18 @@ export default defineComponent({
 </script>
 <template>
 	<ClassifyTree :node-list="nodeList" :mode="mode" >
-    <template #default="{ node, parent }">
-			<div class="classify-item">
+    <template #default="{ node, parent }" >
+			<div class="classify-item" >
         default slot{{ node.label }}
       </div>
     </template>
-    <template #rootNode="{ node, parent }">
-			<div class="classify-item">
+    <template #rootNode="{ node, parent }" >
+			<div class="classify-item" >
         root node {{ node.label }}
       </div>
     </template>
-    <template #newTag="{ node, parent }">
-			<div class="classify-item">
+    <template #newTag="{ node, parent }" >
+			<div class="classify-item" >
         new tag{{ node.label }}
       </div>
     </template>
@@ -105,14 +105,14 @@ export default defineComponent({
 
 ## classification-tree props
 
-| props                  | description                                               | type                    | default                                                                    |
-| ---------------------- | --------------------------------------------------------- | ----------------------- | -------------------------------------------------------------------------- |
-| node-list              | tree node array                                           | ClassificationNode[]    | []                                                                         |
-| mode                   | Parent-child node arrangement direction                   | 'horizon' \| 'vertical' | 'vertical'                                                                 |
-| connectLineOption      | Connector display configuration of parent and child nodes | ConnectLineOption       | {lineHeight: '20px', showArrow: false, lineColor: 'black', lineWidth: '2'} |
-| treeNodeProps          | Custom element node object attribute alias                | TreeNodeProps           | { label: 'label', children: 'children', key: 'key', }                      |
-| expand                 | Expand button custom slot                                 | v-slot:data             | -                                                                          |
-| Custom tree node slots | Tree node custom slot                                     | v-slot: {node, parent}  | -                                                                          |
+| props                    | description                                               | type                    | default                                                                    |
+| ------------------------ | --------------------------------------------------------- | ----------------------- | -------------------------------------------------------------------------- |
+| node-list                | tree node array                                           | ClassificationNode[]    | []                                                                         |
+| mode                     | Parent-child node arrangement direction                   | 'horizon' \| 'vertical' | 'vertical'                                                                 |
+| connectLineOption        | Connector display configuration of parent and child nodes | ConnectLineOption       | {lineHeight: '20px', showArrow: false, lineColor: 'black', lineWidth: '2'} |
+| treeNodeProps            | Custom element node object attribute alias                | TreeNodeProps           | { label: 'label', children: 'children', key: 'key', }                      |
+| expand                   | Expand button custom slot                                 | v-slot:data             | -                                                                          |
+| (Custom tree node slots) | Tree node custom slot                                     | v-slot: {node, parent}  | -                                                                          |
 
 ## ClassificationNode Object
 
