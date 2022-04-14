@@ -2,7 +2,7 @@
  * @Description: 树节点
  * @Author: Happy_Pedestrian
  * @Date: 2022-03-26 09:41:34
- * @LastEditTime: 2022-04-11 16:16:56
+ * @LastEditTime: 2022-04-14 09:31:49
  * @LastEditors: Happy_Pedestrian
 -->
 <template>
@@ -332,13 +332,11 @@ export default defineComponent({
 			}
 		},
 		onExpandClick() {
-			console.log('expand-click')
 			if (this.nodeData.expanded === false) {
 				this.expanded = this.nodeData.expanded = true
 			} else {
 				this.expanded = this.nodeData.expanded = false
 			}
-			console.log('expand-click value:', this.nodeData.expanded)
 		},
 		updateConnectLine() {
 			this.$nextTick(() => {
